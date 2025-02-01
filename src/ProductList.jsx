@@ -8,6 +8,11 @@ function ProductList() {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+    const cartItems = useSelector(state => state.cart.items);
+    console.log(cartItems);
+    const alreadyInCart = (itemName) => {
+        return cartItems.some((item) => item.name === itemName);
+    }
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -294,6 +299,7 @@ function ProductList() {
                                         <p className="product-price">{plant.cost}</p>
                                         {/*Similarly like the above plant.name show other details like description and cost*/}
                                         <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        <div className="product-title">{alreadyInCart(plant.name) ? 'Already in Cart' : ''}</div>
                                     </div>
                                 ))}
                             </div>
